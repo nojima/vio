@@ -65,7 +65,7 @@ void Negate(AVFrame* frame, int width, int height)
 int main(int argc, char** argv)
 {
     if (argc <= 1) {
-        cout << "Usage: VideoIO AVI_FILE" << endl;
+        cout << "Usage: example.exe AVI_FILE" << endl;
         exit(EXIT_FAILURE);
     }
 
