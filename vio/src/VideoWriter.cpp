@@ -65,8 +65,8 @@ std::unique_ptr<vio::VideoWriter> vio::VideoWriter::Open(const std::string& file
 
     std::unique_ptr<VideoWriter> writer(new VideoWriter());
     writer->mFormat = format;
-    writer->mStream = stream;
     writer->mFormatContext = formatContext;
+    writer->mStream = stream;
     writer->mCodecContext = codecContext;
     writer->mBuffer = buffer;
     writer->mBufferSize = size;

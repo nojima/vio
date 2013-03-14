@@ -12,7 +12,8 @@ namespace vio
     /// 動画を書き出すためのクラス
     class VideoWriter {
     public:
-        /// 書き込み先を指定して VideoWriter を初期化する
+        /// 書き込み先を指定して VideoWriter を初期化する．
+        /// @return 成功した場合は VideoWriter のインスタンスを返す．失敗した場合は null を返す．
         static std::unique_ptr<VideoWriter> Open(const std::string& fileName,
                                                  int width, int height,
                                                  AVPixelFormat pixelFormat);
@@ -25,21 +26,22 @@ namespace vio
         void Close();
 
         /// フレームを書き込む．
+        /// @return 成功した場合は true,　失敗した場合は false を返す．
         bool WriteFrame(const AVFrame* frame);
 
     private:
         VideoWriter():
-            mClosed(false), mFormat(nullptr),
-            mBufferSize(0), mStream(nullptr), mFrameCount(0) {}
+            mClosed(false), mFormat(nullptr), mStream(nullptr),
+            mBufferSize(0), mFrameCount(0) {}
 
     private:
         bool mClosed;
         AVOutputFormat* mFormat;
         std::shared_ptr<AVFormatContext> mFormatContext;
+        AVStream* mStream;
+        std::shared_ptr<AVCodecContext> mCodecContext;
         std::shared_ptr<uint8_t> mBuffer;
         int mBufferSize;
-        std::shared_ptr<AVCodecContext> mCodecContext;
-        AVStream* mStream;
         int64_t mFrameCount;
     };
 }
