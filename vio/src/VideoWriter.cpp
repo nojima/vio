@@ -63,8 +63,6 @@ std::unique_ptr<vio::VideoWriter> vio::VideoWriter::Open(const std::string& file
     int size = codecContext->width * codecContext->height * 4 + 1024;
     std::shared_ptr<uint8_t> buffer(static_cast<uint8_t*>(av_malloc(size)), av_free);
 
-    av_dump_format(formatContext.get(), 0, fileName.c_str(), 1);
-
     std::unique_ptr<VideoWriter> writer(new VideoWriter());
     writer->mFormat = format;
     writer->mStream = stream;

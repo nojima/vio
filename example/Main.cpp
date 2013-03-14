@@ -45,6 +45,7 @@ void WriteFramePPM(const string& filename, AVFrame* frame, int width, int height
     fclose(f);
 }
 
+// F‚ğ”½“]‚·‚éD
 void Negate(AVFrame* frame, int width, int height)
 {
     uint8_t* pixels = frame->data[0];
@@ -107,7 +108,7 @@ int main(int argc, char** argv)
                                AV_PIX_FMT_BGR24));      // BGR‚É‚µ‚È‚¢‚ÆR‚ÆB‚ª‚Ğ‚Á‚­‚è•Ô‚Á‚Äo—Í‚³‚ê‚é
     if (!writer) {
         cerr << "failed to open writer" << endl;
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
     reader->Seek(0);
     reader->SetOutputPixelFormat(AV_PIX_FMT_BGR24);     // writer‚Ìİ’è‚É‡‚í‚¹‚é
