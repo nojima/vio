@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 #include <memory>
@@ -9,24 +9,24 @@ extern "C" {
 
 namespace vio
 {
-    /// “®‰æ‚ğ‘‚«o‚·‚½‚ß‚ÌƒNƒ‰ƒX
+    /// å‹•ç”»ã‚’æ›¸ãå‡ºã™ãŸã‚ã®ã‚¯ãƒ©ã‚¹
     class VideoWriter {
     public:
-        /// ‘‚«‚İæ‚ğw’è‚µ‚Ä VideoWriter ‚ğ‰Šú‰»‚·‚éD
-        /// @return ¬Œ÷‚µ‚½ê‡‚Í VideoWriter ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·D¸”s‚µ‚½ê‡‚Í null ‚ğ•Ô‚·D
+        /// æ›¸ãè¾¼ã¿å…ˆã‚’æŒ‡å®šã—ã¦ VideoWriter ã‚’åˆæœŸåŒ–ã™ã‚‹ï¼
+        /// @return æˆåŠŸã—ãŸå ´åˆã¯ VideoWriter ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™ï¼å¤±æ•—ã—ãŸå ´åˆã¯ null ã‚’è¿”ã™ï¼
         static std::unique_ptr<VideoWriter> Open(const std::string& fileName,
                                                  int width, int height,
                                                  AVPixelFormat pixelFormat);
 
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         ~VideoWriter();
 
-        /// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚éD
-        /// ‚±‚ÌŠÖ”‚ğŒÄ‚Î‚È‚©‚Á‚½ê‡‚ÍƒfƒXƒgƒ‰ƒNƒ^‚Å©“®“I‚ÉŒÄ‚Î‚ê‚éD
+        /// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹ï¼
+        /// ã“ã®é–¢æ•°ã‚’å‘¼ã°ãªã‹ã£ãŸå ´åˆã¯ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§è‡ªå‹•çš„ã«å‘¼ã°ã‚Œã‚‹ï¼
         void Close();
 
-        /// ƒtƒŒ[ƒ€‚ğ‘‚«‚ŞD
-        /// @return ¬Œ÷‚µ‚½ê‡‚Í true,@¸”s‚µ‚½ê‡‚Í false ‚ğ•Ô‚·D
+        /// ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ›¸ãè¾¼ã‚€ï¼
+        /// @return æˆåŠŸã—ãŸå ´åˆã¯ true,ã€€å¤±æ•—ã—ãŸå ´åˆã¯ false ã‚’è¿”ã™ï¼
         bool WriteFrame(const AVFrame* frame);
 
     private:

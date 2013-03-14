@@ -1,4 +1,4 @@
-#include "VideoWriter.hpp"
+Ôªø#include "VideoWriter.hpp"
 extern "C" {
 #include "libavutil/avstring.h"
 }
@@ -7,7 +7,7 @@ std::unique_ptr<vio::VideoWriter> vio::VideoWriter::Open(const std::string& file
                                                          int width, int height,
                                                          AVPixelFormat pixelFormat)
 {
-    // ÉRÉìÉeÉiÇÃÉtÉHÅ[É}ÉbÉgÇÕAVI
+    // „Ç≥„É≥„ÉÜ„Éä„ÅÆ„Éï„Ç©„Éº„Éû„ÉÉ„Éà„ÅØAVI
     AVOutputFormat* format = av_guess_format("avi", fileName.c_str(), nullptr);
     if (!format)
         return nullptr;
@@ -23,7 +23,7 @@ std::unique_ptr<vio::VideoWriter> vio::VideoWriter::Open(const std::string& file
     if (!stream)
         return nullptr;
 
-    CodecID codecId = AV_CODEC_ID_RAWVIDEO;         // ÉRÅ[ÉfÉbÉNÇÕrawvideo (ñ≥à≥èk)
+    CodecID codecId = AV_CODEC_ID_RAWVIDEO;         // „Ç≥„Éº„Éá„ÉÉ„ÇØ„ÅØrawvideo (ÁÑ°ÂúßÁ∏Æ)
     AVCodec* codec = avcodec_find_encoder(codecId);
     if (!codec)
         return nullptr;
@@ -43,7 +43,7 @@ std::unique_ptr<vio::VideoWriter> vio::VideoWriter::Open(const std::string& file
             if (*p == codecContext->pix_fmt)
                 break;
         }
-        if (*p == -1)   // ÉRÅ[ÉfÉbÉNÇ™éwíËÇµÇΩÉsÉNÉZÉãÉtÉHÅ[É}ÉbÉgÇÉTÉ|Å[ÉgÇµÇƒÇ¢Ç»Ç¢
+        if (*p == -1)   // „Ç≥„Éº„Éá„ÉÉ„ÇØ„ÅåÊåáÂÆö„Åó„Åü„Éî„ÇØ„Çª„É´„Éï„Ç©„Éº„Éû„ÉÉ„Éà„Çí„Çµ„Éù„Éº„Éà„Åó„Å¶„ÅÑ„Å™„ÅÑ
             return nullptr;
     }
     if (format->flags & AVFMT_GLOBALHEADER)

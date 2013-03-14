@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+ï»¿#define _CRT_SECURE_NO_WARNINGS
 #include "VideoReader.hpp"
 #include "VideoWriter.hpp"
 #include <cstdio>
@@ -8,7 +8,7 @@
 using namespace std;
 
 
-// Portable Gray Map ‚Å‘‚«o‚·D(PGM‚ÍGIMP‚È‚Ç‚Å•\¦‚Å‚«‚é)
+// Portable Gray Map ã§æ›¸ãå‡ºã™ï¼(PGMã¯GIMPãªã©ã§è¡¨ç¤ºã§ãã‚‹)
 void WriteFramePGM(const string& filename, AVFrame* frame, int width, int height)
 {
     FILE* f = fopen(filename.c_str(), "w");
@@ -27,7 +27,7 @@ void WriteFramePGM(const string& filename, AVFrame* frame, int width, int height
     fclose(f);
 }
 
-// Portable Pixel Map ‚Å‘‚«o‚·D(PPM‚ÍGIMP‚È‚Ç‚Å•\¦‚Å‚«‚é)
+// Portable Pixel Map ã§æ›¸ãå‡ºã™ï¼(PPMã¯GIMPãªã©ã§è¡¨ç¤ºã§ãã‚‹)
 void WriteFramePPM(const string& filename, AVFrame* frame, int width, int height)
 {
     FILE* f = fopen(filename.c_str(), "w");
@@ -47,7 +47,7 @@ void WriteFramePPM(const string& filename, AVFrame* frame, int width, int height
     fclose(f);
 }
 
-// F‚ğ”½“]‚·‚éD
+// è‰²ã‚’åè»¢ã™ã‚‹ï¼
 void Negate(AVFrame* frame, int width, int height)
 {
     uint8_t* pixels = frame->data[0];
@@ -76,25 +76,25 @@ int main(int argc, char** argv)
         exit(EXIT_FAILURE);
     }
 
-    // “®‰æ‚Ìî•ñ‚ğ•\¦
+    // å‹•ç”»ã®æƒ…å ±ã‚’è¡¨ç¤º
     cout << "FileName: " << fileName << endl;
     cout << "FrameCount: " << reader->GetFrameCount() << endl;
     cout << "Width: " << reader->GetWidth() << endl;
     cout << "Height: " << reader->GetHeight() << endl;
 
-    // æ“ª‚Ì3ƒtƒŒ[ƒ€‚ğ8ƒrƒbƒgƒOƒŒ[‰æ‘œ‚É•ÏŠ·‚µ‚Äƒtƒ@ƒCƒ‹‚É‘‚«o‚·
-    reader->SetOutputPixelFormat(PIX_FMT_GRAY8);    // 8ƒrƒbƒgƒOƒŒ[‰æ‘œ‚Å“Ç‚İ‚Ş
+    // å…ˆé ­ã®3ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’8ãƒ“ãƒƒãƒˆã‚°ãƒ¬ãƒ¼ç”»åƒã«å¤‰æ›ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãå‡ºã™
+    reader->SetOutputPixelFormat(PIX_FMT_GRAY8);    // 8ãƒ“ãƒƒãƒˆã‚°ãƒ¬ãƒ¼ç”»åƒã§èª­ã¿è¾¼ã‚€
     for (int i = 0; i < 3; ++i) {
-        AVFrame* frame = reader->ReadNextFrame();   // Ÿ‚ÌƒtƒŒ[ƒ€‚ğ“Ç‚İ‚Ş
+        AVFrame* frame = reader->ReadNextFrame();   // æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’èª­ã¿è¾¼ã‚€
         if (!frame) break;
         char filename[256];
         sprintf(filename, "frame-%d.pgm", i);
         WriteFramePGM(filename, frame, reader->GetWidth(), reader->GetHeight());
     }
 
-    // ÅŒã‚Ì3ƒtƒŒ[ƒ€‚ğ24ƒrƒbƒgRGB‰æ‘œ‚É•ÏŠ·‚µ‚Äƒtƒ@ƒCƒ‹‚É‘‚«o‚·
-    reader->Seek(reader->GetFrameCount() - 4);      // ÅŒã‚©‚ç3ƒtƒŒ[ƒ€‘O‚ÉˆÚ“®‚·‚é
-    reader->SetOutputPixelFormat(PIX_FMT_RGB24);    // 24ƒrƒbƒgRGB‰æ‘œ‚Å“Ç‚İ‚Ş
+    // æœ€å¾Œã®3ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’24ãƒ“ãƒƒãƒˆRGBç”»åƒã«å¤‰æ›ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãå‡ºã™
+    reader->Seek(reader->GetFrameCount() - 4);      // æœ€å¾Œã‹ã‚‰3ãƒ•ãƒ¬ãƒ¼ãƒ å‰ã«ç§»å‹•ã™ã‚‹
+    reader->SetOutputPixelFormat(PIX_FMT_RGB24);    // 24ãƒ“ãƒƒãƒˆRGBç”»åƒã§èª­ã¿è¾¼ã‚€
     for (int i = 0; i < 3; ++i) {
         AVFrame* frame = reader->ReadNextFrame();
         if (!frame) break;
@@ -103,22 +103,22 @@ int main(int argc, char** argv)
         WriteFramePPM(filename, frame, reader->GetWidth(), reader->GetHeight());
     }
 
-    // “®‰æ‚ğ“Ç‚İ‚ñ‚Å•Ê‚Ìƒtƒ@ƒCƒ‹‚É‚»‚Ì‚Ü‚Üo—Í‚·‚é
+    // å‹•ç”»ã‚’èª­ã¿è¾¼ã‚“ã§åˆ¥ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ãã®ã¾ã¾å‡ºåŠ›ã™ã‚‹
     std::unique_ptr<vio::VideoWriter> writer(
         vio::VideoWriter::Open("out.avi",
                                reader->GetWidth(), reader->GetHeight(),
-                               AV_PIX_FMT_BGR24));      // BGR‚É‚µ‚È‚¢‚ÆR‚ÆB‚ª‚Ğ‚Á‚­‚è•Ô‚Á‚Äo—Í‚³‚ê‚é
+                               AV_PIX_FMT_BGR24));      // BGRã«ã—ãªã„ã¨Rã¨BãŒã²ã£ãã‚Šè¿”ã£ã¦å‡ºåŠ›ã•ã‚Œã‚‹
     if (!writer) {
         cerr << "failed to open writer" << endl;
         exit(EXIT_FAILURE);
     }
     reader->Seek(0);
-    reader->SetOutputPixelFormat(AV_PIX_FMT_BGR24);     // writer‚Ìİ’è‚É‡‚í‚¹‚é
+    reader->SetOutputPixelFormat(AV_PIX_FMT_BGR24);     // writerã®è¨­å®šã«åˆã‚ã›ã‚‹
     while (AVFrame* frame = reader->ReadNextFrame()) {
-        Negate(frame, reader->GetWidth(), reader->GetHeight());     // F”½“]
+        Negate(frame, reader->GetWidth(), reader->GetHeight());     // è‰²åè»¢
         writer->WriteFrame(frame);
     }
-    writer->Close();    // ‚±‚±‚ÅClose‚µ‚È‚­‚Ä‚àƒfƒXƒgƒ‰ƒNƒ^‚ÅClose‚³‚ê‚éD
+    writer->Close();    // ã“ã“ã§Closeã—ãªãã¦ã‚‚ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§Closeã•ã‚Œã‚‹ï¼
 
     return EXIT_SUCCESS;
 }

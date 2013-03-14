@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <memory>
@@ -10,38 +10,38 @@ extern "C" {
 
 namespace vio
 {
-    /// �����ǂݍ��ނ��߂̃N���X
+    /// 動画を読み込むためのクラス
     class VideoReader {
     public:
-        /// fileName ���J���D
-        /// @return ���������ꍇ�� VideoReader �̃C���X�^���X��Ԃ��D���s�����ꍇ�� null ��Ԃ��D
+        /// fileName を開く．
+        /// @return 成功した場合は VideoReader のインスタンスを返す．失敗した場合は null を返す．
         static std::unique_ptr<VideoReader> Open(const std::string& fileName);
 
-        /// ����̃t���[������Ԃ��D
+        /// 動画のフレーム数を返す．
         int64_t GetFrameCount() const { return mFormatContext->streams[mStreamIndex]->nb_frames; }
 
-        /// ����̃t�H�[�}�b�g��Ԃ��D
+        /// 動画のフォーマットを返す．
         AVPixelFormat GetPixelFormat() const { return mCodecContext->pix_fmt; }
 
-        /// �摜�̕���Ԃ��D
+        /// 画像の幅を返す．
         int GetWidth() const { return mCodecContext->width; }
 
-        /// �摜�̍�����Ԃ��D
+        /// 画像の高さを返す．
         int GetHeight() const { return mCodecContext->height; }
 
-        /// Read()���ԋp����摜�̃t�H�[�}�b�g��Ԃ��D
+        /// Read()が返却する画像のフォーマットを返す．
         AVPixelFormat GetOutputPixelFormat() const { return mOutputPixelFormat; }
 
-        /// Read()���ԋp����摜�̃t�H�[�}�b�g��ݒ肷��D
+        /// Read()が返却する画像のフォーマットを設定する．
         bool SetOutputPixelFormat(AVPixelFormat format);
 
-        /// ���̃t���[����ǂݍ���ŕԂ��D
-        /// ���̊֐��͓����̃o�b�t�@�ւ̎Q�Ƃ�Ԃ����߁C������x���̊֐����Ăяo���ƈȑO�̌Ăяo���œ���ꂽ�摜�͔j�󂳂��D
-        /// @return ����̏I�[�ɒB�����ꍇ�� null ��Ԃ��D�����łȂ��ꍇ�� AVFrame ���w���|�C���^��Ԃ��D
+        /// 次のフレームを読み込んで返す．
+        /// この関数は内部のバッファへの参照を返すため，もう一度この関数を呼び出すと以前の呼び出しで得られた画像は破壊される．
+        /// @return 動画の終端に達した場合は null を返す．そうでない場合は AVFrame を指すポインタを返す．
         AVFrame* ReadNextFrame();
 
-        /// �w�肵���t���[���ɃV�[�N����D
-        /// @return �V�[�N�ł����ꍇ�� true, �����łȂ��ꍇ�� false.
+        /// 指定したフレームにシークする．
+        /// @return シークできた場合は true, そうでない場合は false.
         bool Seek(int64_t frame);
 
     private:
