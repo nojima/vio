@@ -10,7 +10,7 @@ extern "C" {
 
 namespace vio
 {
-    /// 動画を読み込むためのクラス
+    /// 動画を読み込むためのクラス．
     class VideoReader {
     public:
         /// fileName を開く．

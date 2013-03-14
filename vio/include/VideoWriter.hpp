@@ -9,7 +9,8 @@ extern "C" {
 
 namespace vio
 {
-    /// 動画を書き出すためのクラス
+    /// 動画を書き出すためのクラス．
+    /// 現在の実装では，動画は常に無圧縮AVIで出力される．
     class VideoWriter {
     public:
         /// 書き込み先を指定して VideoWriter を初期化する．

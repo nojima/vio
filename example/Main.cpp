@@ -8,7 +8,7 @@
 using namespace std;
 
 
-// Portable Gray Map で書き出す．(PGMはGIMPなどで表示できる)
+// 8ビットグレー画像を Portable Gray Map で書き出す．(PGMはGIMPなどで表示できる)
 void WriteFramePGM(const string& filename, AVFrame* frame, int width, int height)
 {
     FILE* f = fopen(filename.c_str(), "w");
@@ -27,7 +27,7 @@ void WriteFramePGM(const string& filename, AVFrame* frame, int width, int height
     fclose(f);
 }
 
-// Portable Pixel Map で書き出す．(PPMはGIMPなどで表示できる)
+// 24ビットRGB画像を Portable Pixel Map で書き出す．(PPMはGIMPなどで表示できる)
 void WriteFramePPM(const string& filename, AVFrame* frame, int width, int height)
 {
     FILE* f = fopen(filename.c_str(), "w");
@@ -47,7 +47,7 @@ void WriteFramePPM(const string& filename, AVFrame* frame, int width, int height
     fclose(f);
 }
 
-// 色を反転する．
+// 24ビットRGB画像の色を反転する．
 void Negate(AVFrame* frame, int width, int height)
 {
     uint8_t* pixels = frame->data[0];
@@ -96,27 +96,27 @@ int main(int argc, char** argv)
     reader->Seek(reader->GetFrameCount() - 4);      // 最後から3フレーム前に移動する
     reader->SetOutputPixelFormat(PIX_FMT_RGB24);    // 24ビットRGB画像で読み込む
     for (int i = 0; i < 3; ++i) {
-        AVFrame* frame = reader->ReadNextFrame();
+        AVFrame* frame = reader->ReadNextFrame();   // 次のフレームを読み込む
         if (!frame) break;
         char filename[256];
         sprintf(filename, "frame-%d.ppm", i);
         WriteFramePPM(filename, frame, reader->GetWidth(), reader->GetHeight());
     }
 
-    // 動画を読み込んで別のファイルにそのまま出力する
-    std::unique_ptr<vio::VideoWriter> writer(
+    // 動画を別のファイルに色を反転させて出力する
+    std::unique_ptr<vio::VideoWriter> writer =
         vio::VideoWriter::Open("out.avi",
                                reader->GetWidth(), reader->GetHeight(),
-                               AV_PIX_FMT_BGR24));      // BGRにしないとRとBがひっくり返って出力される
+                               AV_PIX_FMT_BGR24);       // BGRにしないとRとBがひっくり返って出力される
     if (!writer) {
-        cerr << "failed to open writer" << endl;
+        cerr << "failed to open out.avi" << endl;
         exit(EXIT_FAILURE);
     }
-    reader->Seek(0);
+    reader->Seek(0);                                    // 動画の先頭に戻る
     reader->SetOutputPixelFormat(AV_PIX_FMT_BGR24);     // writerの設定に合わせる
     while (AVFrame* frame = reader->ReadNextFrame()) {
         Negate(frame, reader->GetWidth(), reader->GetHeight());     // 色反転
-        writer->WriteFrame(frame);
+        writer->WriteFrame(frame);                                  // フレームの内容を書き出す
     }
     writer->Close();    // ここでCloseしなくてもデストラクタでCloseされる．
 
