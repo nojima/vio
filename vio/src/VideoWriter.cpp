@@ -117,9 +117,13 @@ bool vio::VideoWriter::WriteFrame(const AVFrame* frame)
     if (mCodecContext->coded_frame->key_frame)
         packet.flags |= AV_PKT_FLAG_KEY;
 
-    if (av_interleaved_write_frame(mFormatContext.get(), &packet) != 0)
-        return false;
+    int ret = av_interleaved_write_frame(mFormatContext.get(), &packet);
+    av_free_packet(&packet);
 
-    mFrameCount += 1;
-    return true;
+    if (ret == 0) {
+        mFrameCount += 1;
+        return true;
+    } else {
+        return false;
+    }
 }
