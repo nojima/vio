@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <memory>
 extern "C" {
@@ -41,5 +43,4 @@ namespace vio
         AVStream* mStream;
         int64_t mFrameCount;
     };
-
 }
