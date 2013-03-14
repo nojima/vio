@@ -131,7 +131,7 @@ AVFrame* vio::VideoReader::ReadNextFrame()
     return ret;
 }
 
-bool vio::VideoReader::Seek(int frame)
+bool vio::VideoReader::Seek(int64_t frame)
 {
     int ret = avformat_seek_file(mFormatContext.get(), mStreamIndex,
                                  0, frame, frame, AVSEEK_FLAG_FRAME);

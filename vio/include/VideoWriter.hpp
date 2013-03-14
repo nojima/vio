@@ -8,7 +8,7 @@ extern "C" {
 
 namespace vio
 {
-
+    /// 動画を書き出すためのクラス
     class VideoWriter {
     public:
         /// 書き込み先を指定して VideoWriter を初期化する

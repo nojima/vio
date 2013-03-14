@@ -42,7 +42,7 @@ namespace vio
 
         /// 指定したフレームにシークする．
         /// @return シークできた場合は true, そうでない場合は false.
-        bool Seek(int frame);
+        bool Seek(int64_t frame);
 
     private:
         VideoReader(): mStreamIndex(-1), mOutputPixelFormat(PIX_FMT_NONE) {}

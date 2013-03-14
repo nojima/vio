@@ -1,10 +1,12 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "VideoReader.hpp"
 #include "VideoWriter.hpp"
-#include <iostream>
 #include <cstdio>
-#include <string>
 #include <cstdlib>
+#include <string>
+#include <iostream>
 using namespace std;
+
 
 // Portable Gray Map ‚Å‘‚«o‚·D(PGM‚ÍGIMP‚È‚Ç‚Å•\¦‚Å‚«‚é)
 void WriteFramePGM(const string& filename, AVFrame* frame, int width, int height)
