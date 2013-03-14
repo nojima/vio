@@ -7,6 +7,8 @@ std::unique_ptr<vio::VideoWriter> vio::VideoWriter::Open(const std::string& file
                                                          int width, int height,
                                                          AVPixelFormat pixelFormat)
 {
+    av_register_all();
+
     // コンテナのフォーマットはAVI
     AVOutputFormat* format = av_guess_format("avi", fileName.c_str(), nullptr);
     if (!format)
