@@ -98,13 +98,15 @@ bool vio::VideoReader::SetOutputPixelFormat(AVPixelFormat format)
         avpicture_fill(reinterpret_cast<AVPicture*>(mConvertedFrame.get()),
                        mConvertBuffer.get(), format, GetWidth(), GetHeight());
 
-        mSwsContext.reset(
-            sws_getContext(GetWidth(), GetHeight(), GetPixelFormat(),
-                           GetWidth(), GetHeight(), format,
-                           SWS_BILINEAR, nullptr, nullptr, nullptr),
-            sws_freeContext);
-        if (!mSwsContext)
-            return false;
+        if (format != GetPixelFormat()) {
+            mSwsContext.reset(
+                sws_getContext(GetWidth(), GetHeight(), GetPixelFormat(),
+                               GetWidth(), GetHeight(), format,
+                               SWS_BILINEAR, nullptr, nullptr, nullptr),
+                sws_freeContext);
+            if (!mSwsContext)
+                return false;
+        }
     }
     mOutputPixelFormat = format;
     return true;
